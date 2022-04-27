@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->middleware('guest');
 
 Auth::routes();
-
+Route::redirect('home', 'tutores', 301);
 Route::get('tutores', [App\Http\Controllers\HomeController::class, 'index'])->name('tutores')->middleware('auth');
 
 Route::resource('store', App\Http\Controllers\TutorController::class);
