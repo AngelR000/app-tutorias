@@ -1,8 +1,8 @@
 @extends('layouts.app2')
 
-@section('content')
+@section('content2')
 <div class="container">
-    <tutores-component></tutores-component>
+    <estudiantes-component></estudiantes-component>
 </div>
 
 @endsection

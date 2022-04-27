@@ -45,7 +45,7 @@
                     nombre: this.tutor.nombre,
                     email: this.tutor.email
                 }
-                axios.put(`store/${this.tutor.id}`, params).then((response=>{
+                axios.put(`update/${this.tutor.id}`, params).then((response=>{
                 this.editMode=false;
                 const tutor = response.data;
                 this.$emit('update', tutor);

@@ -14,16 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->middleware('guest');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('tutores', [App\Http\Controllers\HomeController::class, 'index'])->name('tutores')->middleware('auth');
 
 Route::resource('store', App\Http\Controllers\TutorController::class);
 Route::resource('index', App\Http\Controllers\TutorController::class);
 Route::resource('update', App\Http\Controllers\TutorController::class);
 Route::resource('destroy', App\Http\Controllers\TutorController::class);
 
-Route::view('/estudiantes', 'estudiantes')->name('estudiantes');
+Route::view('estudiantes', 'estudiantes')->name('estudiantes')->middleware('auth');
+
+Route::resource('estudiantes/store', App\Http\Controllers\EstudianteController::class);
+Route::resource('estudiantes/index', App\Http\Controllers\EstudianteController::class);
+Route::resource('estudiantes/update', App\Http\Controllers\EstudianteController::class);
+Route::resource('estudiantes/destroy', App\Http\Controllers\EstudianteController::class);
