@@ -8,12 +8,15 @@
                             <div class="panel-header h2">Registrar Estudiante</div>
                             <label for="" class="form-label col">Nombre del Estudiante</label>
                             <input type="text" name="Registrar" id="" class="form-control col" v-model="nombreE" required>
-                            <label for="" class="form-label col">Email del Estudiante</label>
-                            <input type="text" name="RegistrarE" id="" class="form-control col" v-model="emailE" required>
-                            <label for="" class="form-label col">Codigo del Estudiante</label>
+                            <label for="" class="form-label col" style="margin-top: 3%;">Tutor del Estudiante</label><br>
+                            <select class="form-select" size="3" aria-label="size 3 select" name="" id="" v-model="tutorE" required>
+                            <option value="" selected>Seleccione un Tutor...</option>
+                            <option v-for="tutor in tutores" :key="tutor.id" :value="tutor.nombre">{{ tutor.nombre }} </option>
+                            </select> <br>
+                            <label for="" class="form-label col" style="margin-top: 3%;">Codigo del Estudiante</label>
                             <input type="text" name="RegistrarC" id="" class="form-control col" v-model="codigoE" required>
                             <button type="submit" class="btn btn-primary" style="margin-top: 3%;">Registrar</button>
-                        </form>
+                            </form>
              </div>
         </div>
     </div>
@@ -26,18 +29,22 @@ import axios from 'axios'
         data(){
             return{
                 nombreE:'',
-                emailE: '',
                 codigoE:'',
+                tutores: [],
+                tutor: '',
+                tutorE: ''
             }
         },
         mounted() {
-            console.log('Component mounted.')
+                axios.get('index').then(response=>{
+                this.tutores = response.data;
+            });
         },
     methods:{
         nuevoEstudiante(){
             const params ={
                 nombre: this.nombreE,
-                email: this.emailE,
+                tutor: this.tutorE,
                 codigoUDG: this.codigoE,
             };
             
@@ -47,9 +54,6 @@ import axios from 'axios'
             })).catch(error => {
             console.log(error.response)
             });
-
-            
-           
          }
         }
     }

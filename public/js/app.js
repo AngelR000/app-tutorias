@@ -5389,23 +5389,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['estudiante'],
   data: function data() {
     return {
-      editMode: false
+      editMode: false,
+      tutores: [],
+      tutor: ''
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('index').then(function (response) {
+      _this.tutores = response.data;
+    });
+  },
   methods: {
     deleteEstudiante: function deleteEstudiante() {
-      var _this = this;
+      var _this2 = this;
 
       var params = {
         id: this.estudiante.index
       };
       axios["delete"]("estudiantes/destroy/".concat(this.estudiante.id)).then(function (response) {
-        _this.$emit('delete');
+        _this2.$emit('delete');
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -5414,18 +5425,18 @@ __webpack_require__.r(__webpack_exports__);
       this.editMode = true;
     },
     updateE: function updateE() {
-      var _this2 = this;
+      var _this3 = this;
 
       var params = {
         nombre: this.estudiante.nombre,
-        email: this.estudiante.email,
+        tutor: this.estudiante.tutor,
         codigoUDG: this.estudiante.codigoUDG
       };
       axios.put("estudiantes/update/".concat(this.estudiante.id), params).then(function (response) {
-        _this2.editMode = false;
+        _this3.editMode = false;
         var estudiante = response.data;
 
-        _this2.$emit('update', estudiante);
+        _this3.$emit('update', estudiante);
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -5525,31 +5536,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       nombreE: '',
-      emailE: '',
-      codigoE: ''
+      codigoE: '',
+      tutores: [],
+      tutor: '',
+      tutorE: ''
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('index').then(function (response) {
+      _this.tutores = response.data;
+    });
   },
   methods: {
     nuevoEstudiante: function nuevoEstudiante() {
-      var _this = this;
+      var _this2 = this;
 
       var params = {
         nombre: this.nombreE,
-        email: this.emailE,
+        tutor: this.tutorE,
         codigoUDG: this.codigoE
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('estudiantes/store', params).then(function (response) {
         var estudiante = response.data;
 
-        _this.$emit('new', estudiante);
+        _this2.$emit('new', estudiante);
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -28708,7 +28728,11 @@ var render = function () {
       _c("div", { staticClass: "panel panel-default" }, [
         _c("div", { staticClass: "panel-body" }, [
           _vm.editMode
-            ? _c("label", { attrs: { for: "" } }, [_vm._v("Nombre: ")])
+            ? _c(
+                "label",
+                { staticClass: "form-label col", attrs: { for: "" } },
+                [_vm._v("Nombre: ")]
+              )
             : _vm._e(),
           _vm.editMode ? _c("br") : _vm._e(),
           _vm._v(" "),
@@ -28722,6 +28746,7 @@ var render = function () {
                     expression: "estudiante.nombre",
                   },
                 ],
+                staticClass: "form-control col",
                 attrs: { type: "text", name: "", id: "", required: "" },
                 domProps: { value: _vm.estudiante.nombre },
                 on: {
@@ -28737,36 +28762,78 @@ var render = function () {
           _vm._v(" "),
           _vm.editMode ? _c("br") : _vm._e(),
           _vm.editMode
-            ? _c("label", { attrs: { for: "" } }, [_vm._v("Email:")])
+            ? _c(
+                "label",
+                { staticClass: "form-label col", attrs: { for: "" } },
+                [_vm._v("Tutor:")]
+              )
             : _vm._e(),
           _vm.editMode ? _c("br") : _vm._e(),
           _vm._v(" "),
           _vm.editMode
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.estudiante.email,
-                    expression: "estudiante.email",
+            ? _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.estudiante.tutor,
+                      expression: "estudiante.tutor",
+                    },
+                  ],
+                  staticClass: "form-select",
+                  attrs: {
+                    size: "3",
+                    "aria-label": "size 3 select",
+                    name: "",
+                    id: "",
+                    required: "",
                   },
-                ],
-                attrs: { type: "text", name: "", id: "", required: "" },
-                domProps: { value: _vm.estudiante.email },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.estudiante, "email", $event.target.value)
+                  on: {
+                    change: function ($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function (o) {
+                          return o.selected
+                        })
+                        .map(function (o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.estudiante,
+                        "tutor",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
                   },
                 },
-              })
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("Seleccione un Tutor..."),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.tutores, function (tutor) {
+                    return _c(
+                      "option",
+                      { key: tutor.id, domProps: { value: tutor.nombre } },
+                      [_vm._v(_vm._s(tutor.nombre) + " ")]
+                    )
+                  }),
+                ],
+                2
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.editMode ? _c("br") : _vm._e(),
           _vm.editMode
-            ? _c("label", { attrs: { for: "" } }, [_vm._v("Codigo:")])
+            ? _c(
+                "label",
+                { staticClass: "form-label col", attrs: { for: "" } },
+                [_vm._v("Codigo:")]
+              )
             : _vm._e(),
           _vm.editMode ? _c("br") : _vm._e(),
           _vm._v(" "),
@@ -28780,6 +28847,7 @@ var render = function () {
                     expression: "estudiante.codigoUDG",
                   },
                 ],
+                staticClass: "form-control col",
                 attrs: { type: "text", name: "", id: "", required: "" },
                 domProps: { value: _vm.estudiante.codigoUDG },
                 on: {
@@ -28792,11 +28860,13 @@ var render = function () {
                 },
               })
             : _c("p", [
-                _vm._v("Nombre: " + _vm._s(_vm.estudiante.nombre) + "  "),
+                _vm._v("Nombre: " + _vm._s(_vm.estudiante.nombre) + " "),
                 _c("br"),
-                _vm._v(" Email: " + _vm._s(_vm.estudiante.email) + " "),
+                _vm._v(" Codigo: " + _vm._s(_vm.estudiante.codigoUDG) + "  "),
                 _c("br"),
-                _vm._v(" Codigo: " + _vm._s(_vm.estudiante.codigoUDG)),
+                _vm._v(
+                  " Tutor Asignado: " + _vm._s(_vm.estudiante.tutor) + " "
+                ),
               ]),
           _vm.editMode ? _c("br") : _vm._e(),
           _vm._v(" "),
@@ -28985,40 +29055,75 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "label",
-                { staticClass: "form-label col", attrs: { for: "" } },
-                [_vm._v("Email del Estudiante")]
+                {
+                  staticClass: "form-label col",
+                  staticStyle: { "margin-top": "3%" },
+                  attrs: { for: "" },
+                },
+                [_vm._v("Tutor del Estudiante")]
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.tutorE,
+                      expression: "tutorE",
+                    },
+                  ],
+                  staticClass: "form-select",
+                  attrs: {
+                    size: "3",
+                    "aria-label": "size 3 select",
+                    name: "",
+                    id: "",
+                    required: "",
+                  },
+                  on: {
+                    change: function ($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function (o) {
+                          return o.selected
+                        })
+                        .map(function (o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.tutorE = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                  },
+                },
+                [
+                  _c("option", { attrs: { value: "", selected: "" } }, [
+                    _vm._v("Seleccione un Tutor..."),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.tutores, function (tutor) {
+                    return _c(
+                      "option",
+                      { key: tutor.id, domProps: { value: tutor.nombre } },
+                      [_vm._v(_vm._s(tutor.nombre) + " ")]
+                    )
+                  }),
+                ],
+                2
               ),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.emailE,
-                    expression: "emailE",
-                  },
-                ],
-                staticClass: "form-control col",
-                attrs: {
-                  type: "text",
-                  name: "RegistrarE",
-                  id: "",
-                  required: "",
-                },
-                domProps: { value: _vm.emailE },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.emailE = $event.target.value
-                  },
-                },
-              }),
+              _c("br"),
               _vm._v(" "),
               _c(
                 "label",
-                { staticClass: "form-label col", attrs: { for: "" } },
+                {
+                  staticClass: "form-label col",
+                  staticStyle: { "margin-top": "3%" },
+                  attrs: { for: "" },
+                },
                 [_vm._v("Codigo del Estudiante")]
               ),
               _vm._v(" "),

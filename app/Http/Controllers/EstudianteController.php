@@ -26,7 +26,7 @@ class EstudianteController extends Controller
     {
         $Estudiantes=new Estudiante();
         $Estudiantes->nombre = $request->nombre;
-        $Estudiantes->email = $request->email;
+        $Estudiantes->tutor = $request->tutor;
         $Estudiantes->codigoUDG = $request->codigoUDG;
         $Estudiantes->save();
         return $Estudiantes;
@@ -54,7 +54,7 @@ class EstudianteController extends Controller
     {
         $Estudiantes=Estudiante::find($id);
         $Estudiantes->nombre = $request->nombre;
-        $Estudiantes->email = $request->email;
+        $Estudiantes->tutor = $request->tutor;
         $Estudiantes->codigoUDG = $request->codigoUDG;
         $Estudiantes->save();
         return $Estudiantes;

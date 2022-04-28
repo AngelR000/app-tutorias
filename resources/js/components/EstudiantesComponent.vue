@@ -6,7 +6,7 @@
                     <restudiante-component @new="addEstudiante"></restudiante-component>
 
                     <p class="h2" style="margin-top:7%;">Estudiantes Registrados</p>
-                    <estudiante-component v-for="(estudiante, index) in estudiantes" :key="estudiante.id" :estudiante="estudiante" @delete="deleteEstudiante(index)" @update="updateE(index,...arguments)"></estudiante-component>
+                    <estudiante-component v-for="(estudiante, index) in estudiantes" :key="estudiante.id" :estudiante="estudiante"  @delete="deleteEstudiante(index)" @update="updateE(index,...arguments)"></estudiante-component>
                     </div>
                 </div>
             </div>
@@ -25,6 +25,7 @@
             })).catch(error => {
             console.log(error.response)
             });
+            
         },
         methods:{
             addEstudiante(estudiante){
