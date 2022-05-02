@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Estudiante;
 class EstudianteController extends Controller
@@ -28,19 +28,23 @@ class EstudianteController extends Controller
         $Estudiantes->nombre = $request->nombre;
         $Estudiantes->tutor = $request->tutor;
         $Estudiantes->codigoUDG = $request->codigoUDG;
+        $Estudiantes->semestre = $request->semestre;
         $Estudiantes->save();
         return $Estudiantes;
     }
 
     /**
      * Display the specified resource.
-     *
+     *@param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($tutor)
+    {      
+        
+        $Estudiantes = Estudiante::where('tutor', $tutor)->get();
+        
+        return $Estudiantes;
     }
 
     /**
@@ -56,6 +60,7 @@ class EstudianteController extends Controller
         $Estudiantes->nombre = $request->nombre;
         $Estudiantes->tutor = $request->tutor;
         $Estudiantes->codigoUDG = $request->codigoUDG;
+        $Estudiantes->semestre = $request->semestre;
         $Estudiantes->save();
         return $Estudiantes;
     }
@@ -70,5 +75,16 @@ class EstudianteController extends Controller
     {
         $Estudiantes=Estudiante::find($id);
          $Estudiantes->delete();   
+    }
+
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param string $tutor
+     */
+    public function select(Request $request){
+        
     }
 }

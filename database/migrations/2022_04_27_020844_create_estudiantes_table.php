@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('tutor');
-            $table->string('codigoUDG')->nullable();
+            $table->string('codigoUDG');
+            $table->string('semestre');
             $table->timestamps();
         });
     }

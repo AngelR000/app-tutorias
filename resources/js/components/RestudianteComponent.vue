@@ -8,13 +8,27 @@
                             <div class="panel-header h2">Registrar Estudiante</div>
                             <label for="" class="form-label col">Nombre del Estudiante</label>
                             <input type="text" name="Registrar" id="" class="form-control col" v-model="nombreE" required>
-                            <label for="" class="form-label col" style="margin-top: 3%;">Tutor del Estudiante</label><br>
-                            <select class="form-select" size="3" aria-label="size 3 select" name="" id="" v-model="tutorE" required>
+                            <label for="" class="form-label col" style="margin-top: 3%;">Codigo del Estudiante</label>
+                            <input type="text" name="RegistrarC" id="" class="form-control col" v-model="codigoE" required>
+                            <br>
+                            <label for="" class="form-label">Semestre</label><br>
+                            <select name="" id="" v-model="semestre" class="form-select" aria-label="size 3 select">
+                                <option value="" selected>Seleccione un Semestre...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select><br>
+                            <label for="" class="form-label" style="margin-top: 3%;">Tutor del Estudiante</label><br>
+                            <select class="form-select" aria-label="size 3 select" name="" id="" v-model="tutorE" required>
                             <option value="" selected>Seleccione un Tutor...</option>
                             <option v-for="tutor in tutores" :key="tutor.id" :value="tutor.nombre">{{ tutor.nombre }} </option>
                             </select> <br>
-                            <label for="" class="form-label col" style="margin-top: 3%;">Codigo del Estudiante</label>
-                            <input type="text" name="RegistrarC" id="" class="form-control col" v-model="codigoE" required>
+                            
                             <button type="submit" class="btn btn-primary" style="margin-top: 3%;">Registrar</button>
                             </form>
              </div>
@@ -32,7 +46,8 @@ import axios from 'axios'
                 codigoE:'',
                 tutores: [],
                 tutor: '',
-                tutorE: ''
+                tutorE: '',
+                semestre: ''
             }
         },
         mounted() {
@@ -46,6 +61,7 @@ import axios from 'axios'
                 nombre: this.nombreE,
                 tutor: this.tutorE,
                 codigoUDG: this.codigoE,
+                semestre: this.semestre
             };
             
             axios.post('estudiantes/store', params).then((response=>{

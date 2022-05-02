@@ -29,18 +29,16 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @if(Auth::User())
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            @if(Auth::guest())
-
-                            @else
                             <a href="{{route('estudiantes')}}">Estudiantes</a>
                         </li>
-                        <li class="nav-item" style="margin-left: 10%"><a href="{{route('todos')}}">Generar&nbsp;&nbsp;Tablas</a></li>
-                        @endif
+                        <li class="nav-item" style="margin-left: 10%"><a href="{{route('tutores')}}">Tutores</a></li>
                     </ul>
                 </div>
+                @endif
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">

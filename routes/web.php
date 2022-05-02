@@ -21,14 +21,19 @@ Auth::routes();
 Route::redirect('home', 'tutores', 301);
 Route::get('tutores', [App\Http\Controllers\HomeController::class, 'index'])->name('tutores')->middleware('auth');
 
+//TUTORES
 Route::resource('store', App\Http\Controllers\TutorController::class);
 Route::resource('index', App\Http\Controllers\TutorController::class);
 Route::resource('update', App\Http\Controllers\TutorController::class);
 Route::resource('destroy', App\Http\Controllers\TutorController::class);
 
+//ESTUDIANTES
 Route::view('estudiantes', 'estudiantes')->name('estudiantes')->middleware('auth');
-
 Route::resource('estudiantes/store', App\Http\Controllers\EstudianteController::class);
 Route::resource('estudiantes/index', App\Http\Controllers\EstudianteController::class);
 Route::resource('estudiantes/update', App\Http\Controllers\EstudianteController::class);
 Route::resource('estudiantes/destroy', App\Http\Controllers\EstudianteController::class);
+Route::resource('estudiantes/show', App\Http\Controllers\EstudianteController::class);
+
+//TODOS
+Route::view('todos', 'todos')->name('todos')->middleware('auth');

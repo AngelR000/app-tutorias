@@ -34,6 +34,7 @@
                         <li class="nav-item">
                             <a href="{{route('tutores')}}">Tutores</a>
                         </li>
+                        <li class="nav-item" style="margin-left: 10%"><a href="{{route('todos')}}">Generar&nbsp;&nbsp;Tablas</a></li>
                       
                     </ul>
                 </div>

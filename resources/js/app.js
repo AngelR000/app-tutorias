@@ -10,6 +10,7 @@ Vue.component('rtutor-component', require('./components/RtutorComponent.vue').de
 Vue.component('estudiantes-component', require('./components/EstudiantesComponent.vue').default);
 Vue.component('estudiante-component', require('./components/EstudianteComponent.vue').default);
 Vue.component('restudiante-component', require('./components/RestudianteComponent.vue').default);
+Vue.component('todos-component', require('./components/TodosComponent.vue').default);
 const app = new Vue({
     el: '#app',
 });
