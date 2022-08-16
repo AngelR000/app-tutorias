@@ -36,6 +36,7 @@
                             <a href="{{route('estudiantes')}}">Estudiantes</a>
                         </li>
                         <li class="nav-item" style="margin-left: 10%"><a href="{{route('tutores')}}">Tutores</a></li>
+                        <li class="nav-item" style="margin-left: 10%"><a href="{{route('subir')}}">Subir PDF</a></li>
                     </ul>
                 </div>
                 @endif

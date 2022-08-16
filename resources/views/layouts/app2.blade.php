@@ -35,7 +35,7 @@
                             <a href="{{route('tutores')}}">Tutores</a>
                         </li>
                         <li class="nav-item" style="margin-left: 10%"><a href="{{route('todos')}}">Generar&nbsp;&nbsp;Tablas</a></li>
-                      
+                        <li class="nav-item" style="margin-left: 10%"><a href="{{route('subir')}}">Subir PDF</a></li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->string('tutor');
             $table->string('codigoUDG');
-            $table->string('semestre');
+            $table->string('semestre')->default('0');
+            $table->string('emailTutor');
             $table->timestamps();
         });
     }

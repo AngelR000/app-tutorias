@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Imports\EstudianteImport;
+use App\Imports\TutorImport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Estudiante;
 class EstudianteController extends Controller
@@ -85,6 +88,19 @@ class EstudianteController extends Controller
      * @param string $tutor
      */
     public function select(Request $request){
+     $file= $request->file('import_file');  
+     Excel::import(new TutorImport, $file);  
+     Excel::import(new EstudianteImport, $file); 
+     
+     return redirect('/estudiantes');
+    }
+
+
+
+    public function import() 
+    {
+        Excel::import(new UsersImport, 'users.xlsx');
         
+        return redirect('/')->with('success', 'All good!');
     }
 }
