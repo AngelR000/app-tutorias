@@ -14,6 +14,7 @@ class Estudiante extends Model
         'tutor',
         'codigoUDG',
         'emailTutor',
+        'semestre',
 
     ];
 }

@@ -88,19 +88,22 @@ class EstudianteController extends Controller
      * @param string $tutor
      */
     public function select(Request $request){
+        try{
      $file= $request->file('import_file');  
      Excel::import(new TutorImport, $file);  
      Excel::import(new EstudianteImport, $file); 
-     
-     return redirect('/estudiantes');
+        }catch(\Exception $e){
+            return redirect('/estudiantes')->with('error', 'Error');
+        }
+        return redirect('/estudiantes')->with('success', 'Exito');
     }
 
 
 
     public function import() 
     {
-        Excel::import(new UsersImport, 'users.xlsx');
         
-        return redirect('/')->with('success', 'All good!');
+        
+        return redirect('/');
     }
 }

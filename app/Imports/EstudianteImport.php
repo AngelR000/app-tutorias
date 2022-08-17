@@ -19,10 +19,10 @@ class EstudianteImport implements ToModel, WithHeadingRow, WithBatchInserts, Wit
     {
         
         return new Estudiante([
-            'nombre' => $row['nombrea'],
+            'nombre' => $row['nombre_alumno'],
             'tutor' => $row['tutor'],
             'codigoUDG' => $row['codigo'],
-            'semestre' => 0,
+            'semestre' => $row['semestre'],
             'emailTutor' =>$row['email_tutor']
         ]);
         
