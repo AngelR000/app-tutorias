@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Estudiante;
+use App\Models\Tutor;
 class EstudianteController extends Controller
 {
     /**
@@ -100,10 +101,15 @@ class EstudianteController extends Controller
 
 
 
-    public function import() 
+    public function limpiarbase() 
     {
+        try{
+            $estudiantes= Estudiante::query()->delete();
+            $tutores= Tutor::query()->delete();
+        }catch(\Exception $e){
+            return redirect('/estudiantes')->with('errorB', 'Error');
+        }
         
-        
-        return redirect('/');
+        return redirect('/estudiantes')->with('successB', 'Exito');
     }
 }

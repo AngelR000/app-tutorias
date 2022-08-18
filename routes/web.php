@@ -35,9 +35,13 @@ Route::resource('estudiantes/update', App\Http\Controllers\EstudianteController:
 Route::resource('estudiantes/destroy', App\Http\Controllers\EstudianteController::class);
 Route::resource('estudiantes/show', App\Http\Controllers\EstudianteController::class);
 Route::post('select', 'App\Http\Controllers\EstudianteController@select')->name('pdf');
+Route::post('limpiar', 'App\Http\Controllers\EstudianteController@limpiarbase')->name('limpiar');
 
 //TODOS
 Route::view('todos', 'todos')->name('todos')->middleware('auth');
 
 //EXCEL
 Route::view('subir', 'subirExcel')->name('subir')->middleware('auth');
+
+//LIMPIAR BD
+Route::view('cleanBD', 'limpiarbd')->name('cleanBD')->middleware('auth');
