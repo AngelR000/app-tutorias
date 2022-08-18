@@ -45,3 +45,7 @@ Route::view('subir', 'subirExcel')->name('subir')->middleware('auth');
 
 //LIMPIAR BD
 Route::view('cleanBD', 'limpiarbd')->name('cleanBD')->middleware('auth');
+
+//BUSCAR TUTOR DE ALUMNO
+Route::view('buscar', 'buscar')->name('buscar');
+Route::resource('estudiantes/showw', App\Http\Controllers\BuscarController::class);

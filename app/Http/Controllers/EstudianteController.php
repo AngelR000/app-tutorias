@@ -112,4 +112,10 @@ class EstudianteController extends Controller
         
         return redirect('/estudiantes')->with('successB', 'Exito');
     }
+
+    public function showw($id){
+        $Estudiantes = Estudiante::where('codigoUDG', $id)->get();
+        return $Estudiantes;
+    }
+   
 }

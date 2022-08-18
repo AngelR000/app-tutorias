@@ -53,10 +53,7 @@ export default {
     methods:{
 
       cargarTutor: function (event){
-            const params = {
-                tutor: this.tutorS
-            }
-        
+            
             axios.get(`estudiantes/show/${this.tutorS}`).then(response=>{
                 this.estudiantes = response.data;
 
